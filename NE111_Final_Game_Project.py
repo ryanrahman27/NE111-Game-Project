@@ -2,7 +2,6 @@ import pygame
 
 pygame.init()
 
-
 #Creating Game Window
 
 SCREEN_WIDTH = 1000
