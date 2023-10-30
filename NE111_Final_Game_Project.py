@@ -2,9 +2,7 @@ import pygame
 
 pygame.init()
 
-def scoobydoobydoo(x):
- x = "hehehehhehehe"
- return x
+
 #Creating Game Window
 
 SCREEN_WIDTH = 1000
