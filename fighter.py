@@ -1,5 +1,6 @@
 import pygame
 
+#Owen Gibbs
 class Fighter():
     def __init__(self, x, y):
         self.flip = False
