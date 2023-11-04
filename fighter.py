@@ -2,14 +2,33 @@ import pygame
 
 #Owen Gibbs
 class Fighter():
-    def __init__(self, x, y):
-        self.flip = False
+    def __init__(self, x, y,flip,data,sprite_sheet,animation_steps):
+        self.width = data[0]
+        self.height = data[1]
+        self.image_scale = data[2]
+        self.flip = flip
+        self.animation_list = self.load_images(sprite_sheet, animation_steps)
+        self.action = 0 #0: idle #1: run #2: jump #3: attack1 #4: attack2 #5: hit #6: death #7: transform
+        self.frame_index = 0
+        self.image = self.animation_list[self.action][self.frame_index]
         self.rect = pygame.Rect((x, y, 80, 180))
         self.vel_y = 0
         self.jump = False
         self.attacking = False
         self.attack_type = 0
         self.health = 100
+
+
+    def load_images(self,sprite_sheet,animation_steps):
+        #Extract images from spritesheet
+        animation_list = []
+        for y, animation in enumerate(animation_steps):
+            temp_img_list = []
+            for x in range(animation):
+                temp_img = sprite_sheet.subsurface(x * self.width,y * self.height,self.width,self.height)
+                temp_img_list.append(pygame.transform.scale(temp_img,(self.width * self.image_scale, self.height * self.image_scale)))
+            animation_list.append(temp_img_list)
+        return animation_list
     
     def move(self, screen_width, screen_height, surface, target):
         SPEED = 10
@@ -57,9 +76,9 @@ class Fighter():
         
         #ensure plays face eachother
         if target.rect.centerx > self.rect.centerx:
-            self.flip = False
-        else:
             self.flip = True
+        else:
+            self.flip = False
 
         #update player position
         self.rect.x += dx
@@ -74,7 +93,9 @@ class Fighter():
         pygame.draw.rect(surface, (0, 225, 0), attacking_rect)
 
     def draw(self, surface):
+        img = pygame.transform.flip(self.image, self.flip,False)
         pygame.draw.rect(surface, (255, 0, 0), self.rect)
+        surface.blit(img,(self.rect.x,self.rect.y))
 
 
 
