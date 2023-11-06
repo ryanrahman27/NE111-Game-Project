@@ -34,9 +34,9 @@ GOKU_WIDTH = 150
 GOKU_HEIGHT = 175
 GOKU_SCALE = 1
 GOKU_DATA = [GOKU_WIDTH,GOKU_HEIGHT, GOKU_SCALE]
-VEGETA_WIDTH = 90
-VEGETA_HEIGHT = 153
-VEGETA_SCALE = 1
+VEGETA_WIDTH = 150
+VEGETA_HEIGHT = 137
+VEGETA_SCALE = 1.2
 VEGETA_DATA = [VEGETA_WIDTH,VEGETA_HEIGHT,VEGETA_SCALE]
 
 
@@ -45,11 +45,11 @@ bg_image = pygame.image.load("assets/bg_image - instasize.jpg").convert_alpha()
 
 #Load Spritesheets - Ryan Rahman
 goku_sheet = pygame.image.load("assets/Goku/Goku Super Saiyan.png").convert_alpha()
-vegeta_sheet = pygame.image.load("assets/Vegeta/Vegeta Super Saiyan.png").convert_alpha()
+vegeta_sheet = pygame.image.load("assets/Vegeta/vegeta.png").convert_alpha()
 
 #Define number of steps in each animation - Ryan Rahman
 GOKU_ANIMATION_STEPS = [6,8,4,6,3,8,3,4,6,9,2,4,3]
-VEGETA_ANIMATION_STEPS = [2,6,7,6,4,6,3,3,3,7,3,3,3,4,7,4,5,10,4,7,4,6,7,4,5,6,4,4,4,9,5,7,4,7,12,7,4,6,6,12,10,4,4,2,2,4,2,2,4,2,2,4,4,4,8,4,7,10,2]
+VEGETA_ANIMATION_STEPS = [6,6,4,6,3,7,3,4,6,5,2,3,4]
 
 #define font - Ryaan Mohideen
 count_font = pygame.font.Font("assets/pixelated_princess.ttf", 80)
