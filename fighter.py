@@ -19,12 +19,14 @@ class Fighter():
         self.jump = False
         self.attacking = False
         self.attack_type = 0
+        self.attack_cooldown = 0
+        self.hit = False
         self.health = 100
         self.alive = True
 
 
     def load_images(self,sprite_sheet,animation_steps):
-        #Extract images from spritesheet
+        #Extract images from spritesheet - Owen Gibbs
         animation_list = []
         for y, animation in enumerate(animation_steps):
             temp_img_list = []
@@ -40,8 +42,9 @@ class Fighter():
         dx = 0
         dy = 0
         self.running = False
+        self.attack_type = 0
 
-        #get keypresses
+        #get keypresses - Zain Khalil
         key = pygame.key.get_pressed()
 
         #can only perfom other actions if not currently attacking
@@ -88,11 +91,11 @@ class Fighter():
 
             
             
-        #apply gravity
+        #apply gravity - Owen Gibbs
         self.vel_y += GRAVITY
         dy += self.vel_y
 
-        #ensure player stays on screen
+        #ensure player stays on screen - Owen Gibbs
         if self.rect.left + dx < 0:
             dx = 0 -self.rect.left
         if self.rect.right +dx > screen_width:
@@ -102,41 +105,74 @@ class Fighter():
             self.jump = False
             dy = screen_height - 110 - self.rect.bottom
         
-        #ensure plays face eachother
+        #ensure plays face eachother - Zain Khalil
         if target.rect.centerx > self.rect.centerx:
             self.flip = True
         else:
             self.flip = False
+        
+        #Apply attack cooldown - Ryan Rahman
+        if self.attack_cooldown > 0:
+            self.attack_cooldown -= 1
 
-        #update player position
+        #update player position - Zain Khalil
         self.rect.x += dx
         self.rect.y += dy
     
 
-    #Handle animation updates
+    #Handle animation updates - Ryan Rahman
     def update(self):
-        #Check what action the player is performing
-        if self.running == True:
+        #Check what action the player is performing - Ryan Rahman
+        if self.health<= 0:
+            self.health = 0
+            self.alive = False
+            self.update_action(11)
+        elif self.hit == True:
+           self.update_action(10) 
+        elif self.attacking == True:
+            if self.attack_type == 1:
+                self.update_action(7)
+            elif self.attack_type == 2:
+                self.update_action(8)
+        elif self.jump == True:
+            self.update_action(5)
+        elif self.running == True:
             self.update_action(6)
         else:
-            self.update_action(0)
-        animation_cooldown = 200
+            self.update_action(12)
+        animation_cooldown = 150
         self.image = self.animation_list[self.action][self.frame_index]
-        #Check if enough time has passed since the last update
+        #Check if enough time has passed since the last update - Ryan Rahman
         if pygame.time.get_ticks() - self.update_time > animation_cooldown:
             self.frame_index += 1
             self.update_time = pygame.time.get_ticks()
-        #Check if the animation has finished
+        #Check if the animation has finished - Ryan Rahman
         if self.frame_index >= len(self.animation_list[self.action]):
-            self.frame_index = 0
+            #If the player is dead then end the animation - Ryan Rahman
+            if self.alive == False:
+                self.frame_index = len(self.animation_list[self.action]) - 1
+            else:
+                self.frame_index = 0
+                #Check if an attack has been executed - Ryan Rahman
+                if self.action == 7 or self.action == 8:
+                    self.attacking = False
+                    self.attack_cooldown = 50
+                #Check if Damage was taken - Ryan Rahman
+                if self.action == 10:
+                    self.hit = False
+                    #If the player was on the middle of the attack, stop attack - Ryan Rahman
+                    self.attacking = False
+                    self.attack_cooldown = 20
 
     def attack(self, target):
-        self.attacking = True
-        attacking_rect = pygame.Rect(self.rect.centerx - 2* self.rect.width * self.flip, self.rect.y, 2 * self.rect.width, self.rect.height)
-        if attacking_rect.colliderect(target.rect):
-            target.health -= 10
-            target.hit = True
+        if self.attack_cooldown == 0:
+            self.attacking = True
+            attacking_rect = pygame.Rect(self.rect.centerx - 2* self.rect.width * self.flip, self.rect.y, 2 * self.rect.width, self.rect.height)
+            if attacking_rect.colliderect(target.rect):
+                target.health -= 10
+                target.hit = True
     
+   #Ryan Rahman
     def update_action(self,new_action):
         #Check if the new action is different to the previous one
         if new_action  != self.action:
@@ -146,6 +182,7 @@ class Fighter():
             self.update_time = pygame.time.get_ticks()
 
 
+    #Zain Khalil
     def draw(self, surface):
         img = pygame.transform.flip(self.image, self.flip,False)
         surface.blit(img,(self.rect.x,self.rect.y))

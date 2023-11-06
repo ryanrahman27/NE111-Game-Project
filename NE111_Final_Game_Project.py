@@ -104,7 +104,7 @@ while run:
             intro_count -= 1 
             last_count_update = pygame.time.get_ticks()
     
-    #update fighters
+    #update fighters - Ryan Rahman
     fighter_1.update()
     fighter_2.update()
 
