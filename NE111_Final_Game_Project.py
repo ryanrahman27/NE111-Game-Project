@@ -24,6 +24,10 @@ WHITE = (255, 255, 255)
 #define game variables - Ryaan Mohideen
 intro_count = 3
 last_count_update = pygame.time.get_ticks()
+score = [0,0] ##player scores - [P1, P2]
+round_over = False
+ROUND_OVER_COOLDOWN = 2000
+
 
 #Define Fighter Variables - Ryan Rahman
 GOKU_WIDTH = 90
@@ -84,12 +88,14 @@ while run:
     #show player stats - Owen Gibbs
     draw_health_bar(fighter_1.health, 20, 20)
     draw_health_bar(fighter_2.health, 580, 20)
-
+    ##show scores - Ryaan Mohideen
+    draw_text("P1: "  + str(score[0]), score_font, RED, 20, 60 )
+    draw_text("P2: "  + str(score[1]), score_font, RED, 580, 60 )
     #update countdown - Ryaan Mohideen
     if intro_count <= 0:
         #move fighters - Owen Gibbs
-        fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2)
-        fighter_2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_1)
+        fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2, round_over)
+        fighter_2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_1, round_over)
     else:
         #display count timer - Ryaan Mohideen
         draw_text(str(intro_count), count_font, RED, SCREEN_WIDTH/2, SCREEN_HEIGHT/3)
@@ -102,7 +108,24 @@ while run:
     fighter_1.draw(screen)
     fighter_2.draw(screen)
 
-
+    #check for player defeat - Ryaan Mohideen
+    if round_over == False:
+        if fighter_1.alive == False:
+            score[1]+=1
+            round_over = True
+            round_over_time = pygame.time.get_ticks()
+        elif fighter_2.alive == False:
+            score[0]+=1
+            round_over = True
+            round_over_time = pygame.time.get_ticks()
+    else:
+        #display victory image - Ryaan Mohideen
+        draw_text("VICTORY!", count_font, RED, 360, 150)
+        if pygame.time.get_ticks() - round_over_time > ROUND_OVER_COOLDOWN:
+            round_over = False
+            intro_count = 3
+            fighter_1 = Fighter(1, 200, 310,False, GOKU_DATA, goku_sheet,GOKU_ANIMATION_STEPS)
+            fighter_2 = Fighter(2, 700, 310,False, VEGETA_DATA, vegeta_sheet,VEGETA_ANIMATION_STEPS)
     #Event Handler - Ryan Rahman
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
