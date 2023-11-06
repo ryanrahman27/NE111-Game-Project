@@ -30,8 +30,8 @@ ROUND_OVER_COOLDOWN = 2000
 
 
 #Define Fighter Variables - Ryan Rahman
-GOKU_WIDTH = 90
-GOKU_HEIGHT = 166
+GOKU_WIDTH = 150
+GOKU_HEIGHT = 175
 GOKU_SCALE = 1
 GOKU_DATA = [GOKU_WIDTH,GOKU_HEIGHT, GOKU_SCALE]
 VEGETA_WIDTH = 90
@@ -48,7 +48,7 @@ goku_sheet = pygame.image.load("assets/Goku/Goku Super Saiyan.png").convert_alph
 vegeta_sheet = pygame.image.load("assets/Vegeta/Vegeta Super Saiyan.png").convert_alpha()
 
 #Define number of steps in each animation - Ryan Rahman
-GOKU_ANIMATION_STEPS = [6,8,4,6,3,3,3,8,3,3,3,3,5,4,6,6,6,6,4,6,6,4,6,5,6,6,7,6,6,6,6,6,9,9,6,10,7,7,4,9,4,4,2,2,4,2,2,4,2,2,4,4,4,7,7,4,3,2,2]
+GOKU_ANIMATION_STEPS = [6,8,4,6,3,8,3,4,6,9,2,4,3]
 VEGETA_ANIMATION_STEPS = [2,6,7,6,4,6,3,3,3,7,3,3,3,4,7,4,5,10,4,7,4,6,7,4,5,6,4,4,4,9,5,7,4,7,12,7,4,6,6,12,10,4,4,2,2,4,2,2,4,2,2,4,4,4,8,4,7,10,2]
 
 #define font - Ryaan Mohideen
@@ -103,6 +103,10 @@ while run:
         if (pygame.time.get_ticks() - last_count_update) > 1000:
             intro_count -= 1 
             last_count_update = pygame.time.get_ticks()
+    
+    #update fighters
+    fighter_1.update()
+    fighter_2.update()
 
     #draw fighter - Owen Gibbs
     fighter_1.draw(screen)
