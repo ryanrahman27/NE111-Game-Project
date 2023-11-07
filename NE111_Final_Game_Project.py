@@ -1,6 +1,9 @@
-import pygame
+# Initialization - Zain Khalil
+import pygame  
+from pygame import mixer
 from fighter import Fighter
 
+mixer.init()
 pygame.init()
 
 
@@ -39,6 +42,14 @@ VEGETA_HEIGHT = 137
 VEGETA_SCALE = 1.2
 VEGETA_DATA = [VEGETA_WIDTH,VEGETA_HEIGHT,VEGETA_SCALE]
 
+# Load Music and Sound Effects - Zain Khalil
+pygame.mixer.music.load("assets/audio/music.mp3")
+pygame.mixer.music.set_volume(0.5) # Volume of music
+pygame.mixer.music.play(-1, 0.0, 5000) # Repitition, Slowly Fades in @ Beginning
+sword_fx = pygame.mixer.Sound("assets/audio/sword.wav") # Selected Sound effect for 
+sword_fx.set_volume(0.5)
+magic_fx = pygame.mixer.Sound("assets/audio/sword.wav") # Selected Sound effect for 
+magic_fx.set_volume(0.5)
 
 #Load Background - Ryan Rahman
 bg_image = pygame.image.load("assets/bg_image - instasize.jpg").convert_alpha()
