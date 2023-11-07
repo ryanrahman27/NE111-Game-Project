@@ -43,13 +43,13 @@ VEGETA_SCALE = 1.2
 VEGETA_DATA = [VEGETA_WIDTH,VEGETA_HEIGHT,VEGETA_SCALE]
 
 # Load Music and Sound Effects - Zain Khalil
-pygame.mixer.music.load("assets/audio/music.mp3")
+pygame.mixer.music.load("assets/audio/Naruto Theme - The Raising Fighting Spirit.mp3")
 pygame.mixer.music.set_volume(0.5) # Volume of music
 pygame.mixer.music.play(-1, 0.0, 5000) # Repitition, Slowly Fades in @ Beginning
-sword_fx = pygame.mixer.Sound("assets/audio/sword.wav") # Selected Sound effect for fighter_1
-sword_fx.set_volume(0.5)
-magic_fx = pygame.mixer.Sound("assets/audio/sword.wav") # Selected Sound effect for fighter_2
-magic_fx.set_volume(0.5)
+punch1_fx = pygame.mixer.Sound("assets/audio/Dragon Ball Z Punch Sound Effect.wav") # Selected Sound effect for fighter_1
+punch1_fx.set_volume(0.5)
+punch2_fx = pygame.mixer.Sound("assets/audio/Dragon Ball Z Punch Sound Effect.wav") # Selected Sound effect for fighter_2
+punch2_fx.set_volume(0.5)
 
 #Load Background - Ryan Rahman
 bg_image = pygame.image.load("assets/bg_image - instasize.jpg").convert_alpha()
@@ -84,8 +84,8 @@ def draw_health_bar(health, x, y):
     pygame.draw.rect(screen, YELLOW, (x, y, 400 * ratio, 30))
 
 #create two instances of fighter - Zain Khalil
-fighter_1 = Fighter(1, 200, 310,False, GOKU_DATA, goku_sheet,GOKU_ANIMATION_STEPS,sword_fx)
-fighter_2 = Fighter(2, 700, 310,False, VEGETA_DATA, vegeta_sheet,VEGETA_ANIMATION_STEPS,magic_fx)
+fighter_1 = Fighter(1, 200, 310,False, GOKU_DATA, goku_sheet,GOKU_ANIMATION_STEPS,punch1_fx)
+fighter_2 = Fighter(2, 700, 310,False, VEGETA_DATA, vegeta_sheet,VEGETA_ANIMATION_STEPS,punch2_fx)
 
 #Game Loop - Ryan Rahman
 run = True
@@ -139,8 +139,8 @@ while run:
         if pygame.time.get_ticks() - round_over_time > ROUND_OVER_COOLDOWN:
             round_over = False
             intro_count = 3
-            fighter_1 = Fighter(1, 200, 310,False, GOKU_DATA, goku_sheet,GOKU_ANIMATION_STEPS,sword_fx)
-            fighter_2 = Fighter(2, 700, 310,False, VEGETA_DATA, vegeta_sheet,VEGETA_ANIMATION_STEPS,magic_fx)
+            fighter_1 = Fighter(1, 200, 310,False, GOKU_DATA, goku_sheet,GOKU_ANIMATION_STEPS,punch1_fx)
+            fighter_2 = Fighter(2, 700, 310,False, VEGETA_DATA, vegeta_sheet,VEGETA_ANIMATION_STEPS,punch2_fx)
     #Event Handler - Ryan Rahman
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
