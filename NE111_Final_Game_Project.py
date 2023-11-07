@@ -134,7 +134,7 @@ while run:
             round_over = True
             round_over_time = pygame.time.get_ticks()
     else:
-        #display victory image - Zain Khalil
+        #display victory image - Owen Gibbs & Zain Khalil 
         draw_text("VICTORY!", count_font, RED, 360, 150)
         if pygame.time.get_ticks() - round_over_time > ROUND_OVER_COOLDOWN:
             round_over = False
