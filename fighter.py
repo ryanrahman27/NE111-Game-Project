@@ -1,6 +1,6 @@
 import pygame
 
-#Owen Gibbs
+#Initializing Fighter Class - Owen Gibbs
 class Fighter():
     def __init__(self, player, x, y,flip,data,sprite_sheet,animation_steps,sound):
         self.player = player
@@ -26,8 +26,8 @@ class Fighter():
         self.alive = True
 
 
+    #Extract images from spritesheet - Owen Gibbs
     def load_images(self,sprite_sheet,animation_steps):
-        #Extract images from spritesheet - Owen Gibbs
         animation_list = []
         for y, animation in enumerate(animation_steps):
             temp_img_list = []
@@ -37,6 +37,7 @@ class Fighter():
             animation_list.append(temp_img_list)
         return animation_list
     
+    #Fighter Movement - Zain Khalil
     def move(self, screen_width, screen_height, surface, target, round_over):
         SPEED = 10
         GRAVITY = 2
@@ -114,7 +115,7 @@ class Fighter():
         else:
             self.flip = False
         
-        #Apply attack cooldown - Ryan Rahman
+        #Apply attack cooldown - Owen Gibbs
         if self.attack_cooldown > 0:
             self.attack_cooldown -= 1
 
@@ -156,14 +157,14 @@ class Fighter():
                 self.frame_index = len(self.animation_list[self.action]) - 1
             else:
                 self.frame_index = 0
-                #Check if an attack has been executed - Ryan Rahman
+                #Check if an attack has been executed - Owen Gibbs
                 if self.action == 7 or self.action == 8:
                     self.attacking = False
                     self.attack_cooldown = 50
                 #Check if Damage was taken - Ryan Rahman
                 if self.action == 10:
                     self.hit = False
-                    #If the player was on the middle of the attack, stop attack - Ryan Rahman
+                    #If the player was on the middle of the attack, stop attack - Owen Gibbs
                     self.attacking = False
                     self.attack_cooldown = 20
     #Zain Khalil
